@@ -3908,6 +3908,9 @@ return function(Vargs, env)
 					if v.Character then
 						local torso = v.Character:FindFirstChild("HumanoidRootPart")
 						if torso then
+							v.Character:SetAttribute("ADONIS_isTeleporting", true)
+							task.delay(0.5, function() if v.Character then v.Character:SetAttribute("ADONIS_isTeleporting", nil) end end)
+
 							Functions.UnCape(v)
 							torso.CFrame = CFrame.new(dist, dist+10, dist)
 							Admin.RunCommand(`{Settings.Prefix}noclip`, v.Name)
@@ -3932,6 +3935,8 @@ return function(Vargs, env)
 						if torso and pTorso and plr ~= v then
 							Admin.RunCommand(`{Settings.Prefix}clip`, v.Name)
 							task.wait(0.3)
+							v.Character:SetAttribute("ADONIS_isTeleporting", true)
+							task.delay(0.5, function() if v.Character then v.Character:SetAttribute("ADONIS_isTeleporting", nil) end end)
 							torso.CFrame = pTorso.CFrame*CFrame.new(0, 0, 5)
 						else
 							plr:LoadCharacter()
